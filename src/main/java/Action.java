@@ -1,18 +1,25 @@
+import dab.database;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
-
+import dab.database.*;
 import java.io.IOException;
 
 public class Action extends HttpServlet{
     public void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
+                String username = req.getParameter("uname");
+                String password = req.getParameter("pwd");
+                String dept = req.getParameter("dept");
+                String query = "select * from TEACHLOGIN";
+                System.out.println(query);
+                database d = new database();
+                System.out.println(d.conn);
+                if(d.Authenticate(query))
+                {
+                    System.out.println("AWESOME");
+                }
+                else{
+                    System.out.println("Not so great");
+                }
 
-        if(req.getParameter("uname").equals("Hai") && req.getParameter("psw").equals("hoi"))
-        {
-            try {
-                res.sendRedirect("tt/tt"+req.getParameter("dept").toLowerCase()+".jsp");
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
     }
 }
