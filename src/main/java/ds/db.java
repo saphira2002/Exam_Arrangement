@@ -1,21 +1,61 @@
 //import oracle.jdbc.driver.*;
-//import javpackage
+//import javpack
+package ds;
 import dab.database;
 import java.sql.*;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 public class db extends HttpServlet {
    public static String dept = "ct5";
-   public static void setDept(String dep)
+   static String[] depts={"ct5","ct7","it5","it7","ece5","ece7","pt5","pt7","mech5","mech7"};
+   public static int y[]  =  new int[10];
+   public static void set(int a)
    {
-      dept = dep;
+      y[a] = 1;
+   }
+   public static boolean timetable(String d)
+   {
+      for(int i = 0 ; i < 10; ++i)
+         if(depts[i].startsWith(d))
+         {
+            if(y[i] == 0)
+               return true;
+         }
+      return false;
+   }
+   public static void update()
+   {
+
+   }
+   public static void check()
+   {
+      database d = new database();
+      try {
+         Statement st = d.conn.createStatement();
+         ResultSet rs = null;
+         int count = 0;
+         for(int i = 0;i < 10; ++i)
+         {
+            rs = st.executeQuery("select count(*) from timetable where dept = '"+depts[i]+"'");
+            while(rs.next())
+               count = rs.getInt(1);
+               if(count > 0)
+               {
+                  y[i] = 1;
+               }
+         }
+         for(int i = 0;i < 10; ++i)
+            System.out.println(y[i]);
+
+      } catch (SQLException e) {
+         throw new RuntimeException(e);
+      }
    }
    public void doPost(HttpServletRequest req,HttpServletResponse res)
    {
       dept = req.getParameter("dept");
       //System.out.println(dept);
       String[] num={"1","2","3","4","5"};
-      String[] depts={"ct5","ct7","it5","it7","ece5","ece7","pt5","pt7","mech5","mech7"};
       String[][] sCode={{"CS6109","CS6110","CS6111","CS6308","CS6304"},
               {"CS6008","CS6012","CS6020","CS6010","CS6023"},
               {"MA8551","EC8691","CS8591","IT8501","CS8494"},
@@ -30,12 +70,14 @@ public class db extends HttpServlet {
          int i = 0, j = 0;
          database d = new database();
          int x = 0;
-         for(i = 0; i< 10; ++i)
-            if(dept == depts[i])
-            {
+         for(i = 0; i < 10; ++i) {
+            if (dept.equals(depts[i])) {
                x = i;
+               System.out.println(x);
                break;
             }
+         }
+         set(x);
          System.out.println(dept);
          for (j = 0; j < 5; j++) {
                String e = req.getParameter("date" + num[j] + dept);
@@ -54,8 +96,9 @@ public class db extends HttpServlet {
 //            dname = rs.getString(2);
 //            dte = rs.getString(3);
 //            System.out.println("SC: " + Subcode + " Dname: " + dname + "  Date: " + dte);
-         req.setAttribute("dep",dept);
-         res.sendRedirect("home.html");
+         HttpSession s = req.getSession();
+         s.setAttribute("dep",dept);
+         res.sendRedirect("home.jsp");
       }
       catch (Exception e)
       {

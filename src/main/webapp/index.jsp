@@ -1,4 +1,7 @@
-
+<%@page import = "ds.db"%>
+<%
+db.check();
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>

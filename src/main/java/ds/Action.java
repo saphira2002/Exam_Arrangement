@@ -1,3 +1,4 @@
+package ds;
 import dab.database;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
@@ -16,7 +17,11 @@ public class Action extends HttpServlet{
                 System.out.println(d.conn);
                 if(d.Authenticate(query,password))
                 {
-                    res.sendRedirect("tt/tt" + dept.toLowerCase() + ".html");
+                    if(db.timetable(dept)) {
+                        res.sendRedirect("tt/tt" + dept.toLowerCase() + ".html");
+                    }
+                    else
+                        res.sendRedirect("tt/home.jsp");
                 }
                 else{
                     System.out.println("Not so great");
