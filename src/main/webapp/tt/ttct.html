@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="../styles.css"/>
+<style>
+    .x{
+        display:none;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("select").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            if(optionValue){
+                $(".x").not("." + optionValue).hide();
+                $("." + optionValue).show();
+            } else{
+                $(".x").hide();
+            }
+        });
+    }).change();
+});
+</script>
+<h2>Time Table</h2>
+<h3>Computer Science Engineering</h3>
+<select name="dropdown" id="dd">
+    <option value="ct5">5TH SEM</option>
+    <option value="ct7">7TH SEM</option>
+</select>
+<form action= "db" method="post" class = "ct5 x">
+    <input type="text" name="dept" value="ct5">
+    <table>
+        <tr>
+          <th>Subject Code</th>
+          <th>Date</th>
+        </tr>
+        <tr>
+          <td>CS6109</td>
+          <td><input type="date" name="date1ct5"></td>
+        </tr>
+        <tr>
+          <td>CS6110</td>
+          <td><input type="date" name="date2ct5"></td>
+        </tr>
+        <tr>
+          <td>CS6111</td>
+          <td><input type="date" name="date3ct5"></td>
+        </tr>
+        <tr>
+          <td>CS6308 </td>
+          <td><input type="date" name="date4ct5"></td>
+        </tr>
+        <tr>
+          <td>CS6304</td>
+          <td><input type="date" name="date5ct5"></td>
+        </tr>
+      </table><br>
+      <button type="submit">SUBMIT</button>
+</form>
+<form action="db" method="post" class="ct7 x">
+    <input type="text" name="dept" value="ct7">
+    <table>
+        <tr>
+            <th>Subject Code</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            <td>CS6008</td>
+            <td><input type="date" name="date1ct7"></td>
+        </tr>
+        <tr>
+            <td>CS6012</td>
+            <td><input type="date" name="date2ct7"></td>
+        </tr>
+        <tr>
+            <td>CS6020</td>
+            <td><input type="date" name="date3ct7"></td>
+        </tr>
+        <tr>
+            <td>CS6010</td>
+            <td><input type="date" name="date4ct7"></td>
+        </tr>
+        <tr>
+            <td>CS6023</td>
+            <td><input type="date" name="date5ct7"></td>
+        </tr>
+    </table><br>
+    <button type="submit">SUBMIT</button>
+</form>

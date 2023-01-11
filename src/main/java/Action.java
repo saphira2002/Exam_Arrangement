@@ -9,13 +9,14 @@ public class Action extends HttpServlet{
                 String username = req.getParameter("uname");
                 String password = req.getParameter("pwd");
                 String dept = req.getParameter("dept");
-                String query = "select * from TEACHLOGIN";
+                String query = "select password from TEACHLOGIN where username = '" + username + "'";
                 System.out.println(query);
                 database d = new database();
+                database.dep = dept;
                 System.out.println(d.conn);
-                if(d.Authenticate(query))
+                if(d.Authenticate(query,password))
                 {
-                    System.out.println("AWESOME");
+                    res.sendRedirect("tt/tt" + dept.toLowerCase() + ".html");
                 }
                 else{
                     System.out.println("Not so great");

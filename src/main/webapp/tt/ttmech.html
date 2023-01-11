@@ -1,0 +1,88 @@
+<style>
+    .x{
+    display:none;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("select").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            if(optionValue){
+                $(".x").not("." + optionValue).hide();
+                $("." + optionValue).show();
+            } else{
+                $(".x").hide();
+            }
+        });
+    }).change();
+});
+</script>
+<h2>Time Table</h2>
+<h3>Mechanical Engineering</h3>
+<select name="dropdown" id="dd">
+    <option value="mech5">5TH SEM</option>
+    <option value="mech7">7TH SEM</option>
+</select>
+<form action= "db" method="post" class="mech7 x">
+    <input type="text" name="dept" value="mech7">
+    <table>
+        <tr>
+          <th>Subject Code</th>
+          <th>Date</th>
+        </tr>
+        <tr>
+          <td>ME6969</td>
+          <td><input type="date" name="date1mech7"></td>
+        </tr>
+        <tr>
+          <td>ME8789</td>
+          <td><input type="date" name="date2mech7"></td>
+        </tr>
+        <tr>
+          <td>ME6523</td>
+          <td><input type="date" name="date3mech7"></td>
+        </tr>
+        <tr>
+          <td>ME8526</td>
+          <td><input type="date" name="date4mech7"></td>
+        </tr>
+        <tr>
+          <td>MA0877</td>
+          <td><input type="date" name="date5mech7"></td>
+        </tr>
+      </table><br>
+    <input type="hidden" name="dept" value="mech" >
+       <button type="submit">SUBMIT</button>
+</form>
+<form action= "db" method="post" class="mech5 x">
+    <input type="text" name="dept" value="mech5">
+    <table>
+        <tr>
+            <th>Subject Code</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            <td>ME8595</td>
+            <td><input type="date" name="date1mech5"></td>
+        </tr>
+        <tr>
+            <td>ME8593</td>
+            <td><input type="date" name="date2mech5"></td>
+        </tr>
+        <tr>
+            <td>ME8501</td>
+            <td><input type="date" name="date3mech5"></td>
+        </tr>
+        <tr>
+            <td>ME8594</td>
+            <td><input type="date" name="date4mech5"></td>
+        </tr>
+        <tr>
+            <td>OAT552</td>
+            <td><input type="date" name="date5mech5"></td>
+        </tr>
+    </table><br>
+    <input type="hidden" name="dept" value="mech" >
+    <button type="submit">SUBMIT</button>

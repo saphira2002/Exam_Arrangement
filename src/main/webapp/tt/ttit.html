@@ -1,0 +1,90 @@
+<style>
+    .x {
+    display: none;
+    }
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script>
+$(document).ready(function(){
+    $("select").change(function(){
+        $(this).find("option:selected").each(function(){
+            var optionValue = $(this).attr("value");
+            if(optionValue){
+                $(".x").not("." + optionValue).hide();
+                $("." + optionValue).show();
+            } else{
+                $(".x").hide();
+            }
+        });
+    }).change();
+});
+</script>
+<h2>Time Table</h2>
+<h3>Information Technology</h3>
+<select name="dropdown" id="dd">
+    <option value="it5">5TH SEM</option>
+    <option value="it7">7TH SEM</option>
+</select>
+<form action= "db" method="post" class="it7 x">
+    <input type="text" name="dept" value="it7">
+    <table>
+        <tr>
+          <th>Subject Code</th>
+          <th>Date</th>
+        </tr>
+        <tr>
+          <td>MA8765</td>
+          <td><input type="date" name="date1it7"></td>
+        </tr>
+        <tr>
+          <td>MA1023</td>
+          <td><input type="date" name="date2it7"></td>
+        </tr>
+        <tr>
+          <td>CS6001</td>
+          <td><input type="date" name="date3it7"></td>
+        </tr>
+        <tr>
+          <td>IT8512 </td>
+          <td><input type="date" name="date4it7"></td>
+        </tr>
+        <tr>
+          <td>IT9532</td>
+          <td><input type="date" name="date5it7"></td>
+        </tr>
+      </table><br>
+    <input type="hidden" name="dept" value="it5" >
+       <button type="submit">SUBMIT</button>
+</form>
+
+<form action= "db" method="post" class="it5 x">
+    <input type="text" name="dept" value="it5">
+    <table>
+        <tr>
+            <th>Subject Code</th>
+            <th>Date</th>
+        </tr>
+        <tr>
+            <td>MA8551</td>
+            <td><input type="date" name="date1it5"></td>
+        </tr>
+        <tr>
+            <td>EC8691</td>
+            <td><input type="date" name="date2it5"></td>
+        </tr>
+        <tr>
+            <td>CS8591</td>
+            <td><input type="date" name="date3it5"></td>
+        </tr>
+        <tr>
+            <td>IT8501 </td>
+            <td><input type="date" name="date4it5"></td>
+        </tr>
+        <tr>
+            <td>CS8494</td>
+            <td><input type="date" name="date5it5"></td>
+        </tr>
+    </table><br>
+    <input type="hidden" name="dept" value="it" >
+    <button type="submit">SUBMIT</button>
+</form>
