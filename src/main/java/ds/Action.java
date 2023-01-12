@@ -17,7 +17,10 @@ public class Action extends HttpServlet{
                 System.out.println(d.conn);
                 if(d.Authenticate(query,password))
                 {
-                    if(db.timetable(dept)) {
+                    if(username.equals("Admin")) {
+                        res.sendRedirect("admin.jsp");
+                    }
+                    else if(db.timetable(dept)) {
                         res.sendRedirect("tt/tt" + dept.toLowerCase() + ".html");
                     }
                     else

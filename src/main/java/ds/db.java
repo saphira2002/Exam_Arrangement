@@ -7,7 +7,8 @@ import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 public class db extends HttpServlet {
    public static String dept = "ct5";
-   static String[] depts={"ct5","ct7","it5","it7","ece5","ece7","pt5","pt7","mech5","mech7"};
+   public static int g = 0;
+   public static String[] depts={"ct5","ct7","it5","it7","ece5","ece7","pt5","pt7","mech5","mech7"};
    public static int y[]  =  new int[10];
    public static void set(int a)
    {
@@ -23,12 +24,18 @@ public class db extends HttpServlet {
          }
       return false;
    }
-   public static void update()
-   {
 
+   public static void update(String q)
+   {
+      for(int i = 0 ; i < 10; ++i)
+         if(depts[i].startsWith(q))
+         {
+            y[i] = 0;
+         }
    }
    public static void check()
    {
+      System.out.println("hello");
       database d = new database();
       try {
          Statement st = d.conn.createStatement();
@@ -46,7 +53,12 @@ public class db extends HttpServlet {
          }
          for(int i = 0;i < 10; ++i)
             System.out.println(y[i]);
-
+         rs = st.executeQuery("select count(*) from seat_allot");
+         while(rs.next())
+         {
+            if(rs.getInt(1) > 0)
+               g = 1;
+         }
       } catch (SQLException e) {
          throw new RuntimeException(e);
       }
@@ -96,9 +108,11 @@ public class db extends HttpServlet {
 //            dname = rs.getString(2);
 //            dte = rs.getString(3);
 //            System.out.println("SC: " + Subcode + " Dname: " + dname + "  Date: " + dte);
-         HttpSession s = req.getSession();
-         s.setAttribute("dep",dept);
-         res.sendRedirect("home.jsp");
+         if(timetable(d.dep))
+            res.sendRedirect("tt"+d.dep+".html");
+         else
+            res.sendRedirect("home.jsp");
+
       }
       catch (Exception e)
       {

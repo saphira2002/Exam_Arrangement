@@ -46,7 +46,9 @@ public class Assign_Seats{
                     System.out.print(stu_list[j][i]+" - "+availableSeats.get(i).get(j)+" | ");
                 }
                 System.out.println();
+
             }
+            db.g = 1;
         } catch(Exception e) {System.out.println("Inner Catch  "+e);}
     }
 

@@ -1,16 +1,4 @@
-<%@page import="ds.db,ds.Action"%>
-<%
-    boolean dis = false;
-    String x = " ";
-    for(int i = 0;i < 10;++i)
-    {
-        out.println(db.y[i]);
-        if(db.y[i] == 0)
-            dis = true;
-    }
-    if(dis)
-        x = "disabled";
-%>
+<%@page import="ds.db,ds.Action,dab.database"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,14 +9,10 @@
 <form action="../showtt.jsp" method="post">
   <button type="submit">VIEW TIMETABLE</button>
 </form>
-<form action = "../assign.jsp" method = "post">
-  <button <%= x %> >ALLOT SEATS</button>
-</form>
+
 <form action="update.jsp" method="post">
+<input type="hidden" name = "dep" value= <%=database.dep%> %> >
 <button type="submit">UPDATE AND RESET</button>
-</form>
-<form action="goback.jsp" method="post">
-<button type="submit">GO BACK</button>
 </form>
 </body>
 </html>

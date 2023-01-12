@@ -1,6 +1,7 @@
-<%@page import = "ds.db"%>
+<%@page import = "ds.db,dab.email"%>
 <%
 db.check();
+email.awesome();
 %>
 <!DOCTYPE html>
 <html lang="en">
