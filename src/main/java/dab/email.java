@@ -4,10 +4,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.util.Properties;
 public class email {
-        public static void awesome() {
-
-            final String username = "ragnaradams1@gmail.com";
-            final String password = "tiuygtwijhxtwkzq";
+        public static void awesome(String email,String msg) {
+            final String username = "xxx@gmail.com";
+            final String password = "";
 
             Properties prop = new Properties();
             prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -29,11 +28,10 @@ public class email {
                 message.setFrom(new InternetAddress(username));
                 message.setRecipients(
                         Message.RecipientType.TO,
-                        InternetAddress.parse("shreez1607@gmail.com, tell2magarika.m@gmail.com,srijithunni11@gmail.com")
+                        InternetAddress.parse(email)
                 );
-                message.setSubject("Testing Gmail SSL");
-                message.setText("Dear Mail Crawler,"
-                        + "\n\n Please do not spam my email!");
+                message.setSubject("Your Exam Seat!");
+                message.setText(msg);
 
                 Transport.send(message);
 

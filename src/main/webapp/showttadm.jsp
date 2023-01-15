@@ -1,34 +1,107 @@
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 <%@ page import="dab.database,java.sql.*"%>
+<jsp:include page="headerafter.jsp"/>
+<style>
+body {
+    background-image: linear-gradient(-225deg, #E3FDF5 0%, #FFE6FA 100%);
+background-image: linear-gradient(to top, #a8edea 0%, #fed6e3 100%);
+background-attachment: fixed;
+  background-repeat: no-repeat;
+    margin-top: 150px;
+    font-family: 'Vibur', cursive;
+/*   the main font */
+    font-family: 'Abel', sans-serif;
+opacity: .95;
+/* background-image: linear-gradient(to top, #d9afd9 0%, #97d9e1 100%); */
+}
+
+header {
+    margin: 2% auto 10% auto;
+    text-align: center;
+}
+/* Login title form form */
+h2 {
+    font-size: 250%;
+    font-family: 'Playfair Display', serif;
+    color: #3e403f;
+}
+/*  A welcome message or an explanation of the login form */
+header p {letter-spacing: 0.05em;}
+table, th, td,tr {
+  border:1px solid black;
+  height: 100px;
+  width:100%;
+  top:0;
+  margin-top:10px;
+}
+
+th,td{
+padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+}
+form{
+    width: 500px;
+    min-height: 500px;
+    height: auto;
+    border-radius: 5px;
+    margin: 10px auto;
+    box-shadow: 0 9px 50px hsla(20, 67%, 75%, 0.31);
+    padding: 10px;
+    background-image: linear-gradient(-225deg, #E3FDF5 50%, #FFE6FA 50%);
+}
+/* form Container */
+form .con {
+    display: -webkit-flex;
+    display: flex;
+
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+</style>
+<body>
+<header>
+<center>
 <%
 try{
     database d = new database();
     Statement st = d.conn.createStatement();
     String query = "select * from timetable order by dept";
     ResultSet rs = st.executeQuery(query);
+    %>
+   <form>
+   <h2>TIMETABLE</h2>
+   <table>
+       <tr>
+                 <th>SUBJECT CODE</th><br>
+                 <th>DEPARTMENT</th><br>
+                 <th>DATE</th><br>
+       </tr>
+   <%
     int count = 0;
-    %>
-        <div align="center" class="container">
+       while(rs.next())
+       {
+       %>
+   <p>
+   <tr>
+       <td><%= (rs.getString(1)) + " "%></td>
+       <td><%= (rs.getString(2)) + " "%></td>
+       <td><%= (rs.getString(3).split(" ")[0]) + " "%></td>
     <%
-    while(rs.next())
-    {
-    if(count % 5 == 0)
-    {
-    %>
-    <h3><% out.println(rs.getString(1)); %></h3>
+    count++;
+    }%>
+    </table>
+    </form>
     <%
-    }
-    %>
-<p><% out.println(rs.getString(1) + " " + rs.getString(2) + " " + rs.getString(3).split(" ")[0]);%></p>
-<%
-count++;
-}%>
-</div>
-<%
-}
+   }
 catch(Exception e)
 {
     out.println(e);
 }
 %>
+<jsp:include page= "footer.jsp"/>

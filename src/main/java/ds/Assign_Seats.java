@@ -3,6 +3,7 @@ package ds;
 import java.sql.*;
 
 import dab.database;
+import dab.SendEmail;
 import java.util.ArrayList;
 
 public class Assign_Seats{
@@ -33,15 +34,19 @@ public class Assign_Seats{
                 System.out.println("------------------------------------------------------------");
             }
             int noOfPplInEach;
+            String[] seatno;
             for(int i=0;i<noOfDept;i++){
                 System.out.println("hey");
                 noOfPplInEach = stu_list.length;
                 System.out.println("No. of ppl in "+i+" dept "+noOfPplInEach);
                 for(int j=0;j<noOfPplInEach;j++){
-                    PreparedStatement st = conn.prepareStatement("insert into seat_allot values(?,?,?)");
+                    PreparedStatement st = conn.prepareStatement("insert into seat_allot values(?,?,?,?,?)");
                     st.setObject(1,theBigDate);
                     st.setObject(2,stu_list[j][i]);
-                    st.setObject(3,availableSeats.get(i).get(j));
+                    seatno=availableSeats.get(i).get(j).split(" ");
+                    st.setObject(3,seatno[0]);
+                    st.setObject(4,seatno[1]);
+                    st.setObject(5,seatno[2]);
                     st.executeUpdate();
                     System.out.print(stu_list[j][i]+" - "+availableSeats.get(i).get(j)+" | ");
                 }
@@ -49,6 +54,7 @@ public class Assign_Seats{
 
             }
             db.g = 1;
+            SendEmail.sendingMail();
         } catch(Exception e) {System.out.println("Inner Catch  "+e);}
     }
 
@@ -105,7 +111,7 @@ public class Assign_Seats{
                     {
                         System.out.println("hey");
                         rs = st.executeQuery("select dept from timetable where x_date='"+dates[j]+"'");
-                        String[] dept_req = new String[10];
+                        String[] dept_req = new String[50];
                         int dept_count=0,c;
                         while(rs.next())
                         {
